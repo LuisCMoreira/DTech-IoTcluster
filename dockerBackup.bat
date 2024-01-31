@@ -3,5 +3,4 @@ docker run -v mytb-data:/data -v %cd%\backup:/backup ubuntu tar czvf /backup/myt
 
 docker run -v nodered-data:/data -v %cd%\backup:/backup ubuntu tar czvf /backup/nodered-data-backup.tar.gz -C /data .
 
-docker rmi ubuntu
 
