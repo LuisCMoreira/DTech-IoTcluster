@@ -12,5 +12,3 @@ docker volume create nodered-data
 docker run -v nodered-data:/data -v %cd%\backup:/backup ubuntu tar xzvf /backup/nodered-data-backup.tar.gz -C /data
 
 docker volume create mongodb-data
-
-docker rmi ubuntu
