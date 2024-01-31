@@ -1,28 +1,7 @@
 @echo off
+docker run -v mytb-data:/data -v %cd%\backup:/backup ubuntu tar czvf /backup/mytb-data-backup.tar.gz -C /data .
 
-REM Set the directory of the script
-set SCRIPT_DIR=%~dp0
+docker run -v nodered-data:/data -v %cd%\backup:/backup ubuntu tar czvf /backup/nodered-data-backup.tar.gz -C /data .
 
-REM Define backup directory as a subfolder named "backups"
-set BACKUP_DIR=%SCRIPT_DIR%backups
+docker rmi ubuntu
 
-REM Create the backups directory if it doesn't exist
-if not exist "%BACKUP_DIR%" mkdir "%BACKUP_DIR%"
-
-REM Back up ThingsBoard volume
-docker run --rm ^
-  -v %BACKUP_DIR%:/backup ^
-  -v mytb-data:/data ^
-  busybox tar cvf /backup/mytb-backup.tar /data
-
-REM Back up Node-RED volume
-docker run --rm ^
-  -v %BACKUP_DIR%:/backup ^
-  -v nodered-data:/data ^
-  busybox tar cvf /backup/nodered-backup.tar /data
-
-REM Back up MongoDB volume
-docker run --rm ^
-  -v %BACKUP_DIR%:/backup ^
-  -v mongodb-data:/data/db ^
-  busybox tar cvf /backup/mongodb-backup.tar /data/db
